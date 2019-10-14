@@ -1,0 +1,27 @@
+<!DOCTYPE web-app PUBLIC
+ "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
+ "http://java.sun.com/dtd/web-app_2_3.dtd" >
+
+<web-app>
+  <display-name>Archetype Created Web Application</display-name>
+  <servlet>
+  	<servlet-name>AnnotateServlet</servlet-name>
+  	<display-name>AnnotateServlet</display-name>
+  	<description></description>
+  	<servlet-class>annotate.AnnotateServlet</servlet-class>
+  </servlet>
+  <servlet>
+  	<servlet-name>image_detect</servlet-name>
+  	<display-name>image_detect</display-name>
+  	<description></description>
+  	<servlet-class>annotate.AnnotateServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>AnnotateServlet</servlet-name>
+  	<url-pattern>/AnnotateServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>image_detect</servlet-name>
+  	<url-pattern>/annotate</url-pattern>
+  </servlet-mapping>
+</web-app>
