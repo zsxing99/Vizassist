@@ -32,7 +32,7 @@ import org.apache.http.client.ClientProtocolException;
 
 public class MainActivity extends AppCompatActivity {
 
-    private static final String UPLOAD_HTTP_URL = "http://35.235.93.81:8080/Vizassist/annotate";
+    private static final String UPLOAD_HTTP_URL = ""; // removed for security reasons
 
     private static final int IMAGE_CAPTURE_CODE = 1;
     private static final int SELECT_IMAGE_CODE = 2;
