@@ -1,0 +1,16 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools" tools:context=".MainActivity">
+
+    <item android:id="@+id/action_capture"
+        android:title="@string/capture_button"
+        android:orderInCategory="100"
+        app:showAsAction="ifRoom"
+        android:icon="@drawable/ic_camera_alt_white_24dp"/>
+
+    <item android:id="@+id/action_gallery"
+        android:title="@string/gallery_button"
+        android:orderInCategory="101"
+        app:showAsAction="ifRoom"
+        android:icon="@drawable/ic_photo_album_white_24dp"/>
+</menu>
