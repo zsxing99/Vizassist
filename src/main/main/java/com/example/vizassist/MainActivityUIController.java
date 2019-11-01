@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Handler;
 import android.os.Looper;
 import android.widget.ImageView;
@@ -14,6 +15,8 @@ import android.view.View;
 
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+
+import java.net.URI;
 
 /**
  * Controller of main activity.
@@ -45,6 +48,11 @@ public class MainActivityUIController {
 
     public void updateImageViewWithBitmap(Bitmap bitmap) {
         imageView.setImageBitmap(bitmap);
+        imageView.setContentDescription(activity.getString(R.string.image_sent));
+    }
+
+    public void updateImageViewWithUri(Uri uri) {
+        imageView.setImageURI(uri);
         imageView.setContentDescription(activity.getString(R.string.image_sent));
     }
 

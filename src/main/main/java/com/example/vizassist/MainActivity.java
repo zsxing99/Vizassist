@@ -21,6 +21,8 @@ import com.example.vizassist.utilities.HttpUtilities;
 
 import org.json.JSONException;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.sql.ClientInfoStatus;
@@ -32,7 +34,7 @@ import org.apache.http.client.ClientProtocolException;
 
 public class MainActivity extends AppCompatActivity {
 
-    private static final String UPLOAD_HTTP_URL = "";  // security update
+    private static final String UPLOAD_HTTP_URL = "http://35.235.93.81:8080/Vizassist/annotate";
 
     private static final int IMAGE_CAPTURE_CODE = 1;
     private static final int SELECT_IMAGE_CODE = 2;
@@ -107,30 +109,35 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == RESULT_OK) {
-            Bitmap bitmap = null;
+            Bitmap bitMapToUpload = null;
+            Uri photoUri = null;
             if (requestCode == IMAGE_CAPTURE_CODE) {
-                bitmap = (Bitmap) data.getExtras().get("data");
-                mainActivityUIController.updateImageViewWithBitmap(bitmap);
-            } else if (requestCode == SELECT_IMAGE_CODE) {
-                Uri selectedImage = data.getData();
+                photoUri = Uri.parse(ImageActions.currentPhotoPath);
                 try {
-                    bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(),
-                            selectedImage);
-                    mainActivityUIController.updateImageViewWithBitmap(bitmap);
+                    bitMapToUpload = MediaStore.Images.Media.getBitmap(
+                            this.getContentResolver(), Uri.fromFile(new File(ImageActions.currentPhotoPath)));
                 } catch (IOException e) {
-                    mainActivityUIController.showErrorDialogWithMessage(
-                            R.string.reading_error_message);
+                    e.printStackTrace();
                 }
+                mainActivityUIController.updateImageViewWithUri(photoUri);
+            } else if (requestCode == SELECT_IMAGE_CODE) {
+                photoUri = data.getData();
+                mainActivityUIController.updateImageViewWithUri(photoUri);
             }
-            if (bitmap != null) {
-                final Bitmap bitMapToUpload = bitmap;
-                Thread thread = new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        uploadImage(bitMapToUpload);
-                    }
-                });
-                thread.start();
+            if (photoUri != null) {
+                try {
+                    final Bitmap bitmap = bitMapToUpload == null ? MediaStore.Images.Media.getBitmap(
+                            this.getContentResolver(), photoUri) : bitMapToUpload;
+                    Thread thread = new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            uploadImage(bitmap);
+                        }
+                    });
+                    thread.start();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         }
     }
