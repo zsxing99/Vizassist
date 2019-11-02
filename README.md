@@ -5,4 +5,3 @@ back-end depoloyed on GCP, GKE              -- finished <br />
 Android development                         -- major functionalities implemented, polishment finished <br />
 Accessiblities enabled                      -- TalkBack enabled <br />
 <br />
-A demo will be uploaded to demonstrate the use of this app.
